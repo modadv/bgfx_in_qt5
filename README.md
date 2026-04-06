@@ -1,6 +1,6 @@
-# 3dengine
+# bgfx_in_qt
 
-`3dengine` is a cross-platform 3D rendering solution for Qt GUI applications. It keeps Qt as the host UI layer and introduces a modern rendering engine through an offscreen rendering path, so existing desktop applications can gain modern 3D graphics capabilities without abandoning their Qt-based architecture.
+`bgfx_in_qt` is a cross-platform 3D rendering solution for Qt GUI applications. It keeps Qt as the host UI layer and introduces a modern rendering engine through an offscreen rendering path, so existing desktop applications can gain modern 3D graphics capabilities without abandoning their Qt-based architecture.
 
 The current focus is narrow on purpose:
 
