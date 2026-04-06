@@ -15,8 +15,10 @@
 #include <QPointer>
 #include <QSize>
 #if defined(Q_OS_LINUX)
-#include <QX11Info>
 #include <GL/glx.h>
+#ifdef None
+#undef None
+#endif
 #endif
 #include <algorithm>
 #include <deque>
@@ -559,7 +561,7 @@ bool TerrainViewportRenderer::ensureSurface(const QSize& sz)
 
         bgfx::PlatformData pd{};
 #if defined(Q_OS_LINUX)
-        pd.ndt          = QX11Info::display();
+        pd.ndt          = reinterpret_cast<void*>(glXGetCurrentDisplay());
         pd.context      = reinterpret_cast<void*>(glXGetCurrentContext());
 #elif defined(Q_OS_WIN)
         pd.ndt = nullptr;

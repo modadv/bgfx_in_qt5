@@ -44,11 +44,6 @@ target_compile_definitions(${PROJECT_NAME} PRIVATE
     DEMO_SOURCE_ROOT="${CMAKE_SOURCE_DIR}"
 )
 
-if(UNIX AND NOT APPLE)
-    find_package(Qt5 5.15 REQUIRED COMPONENTS X11Extras)
-    target_link_libraries(${PROJECT_NAME} PRIVATE Qt5::X11Extras)
-endif()
-
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
             "${CMAKE_BINARY_DIR}/shaders"
