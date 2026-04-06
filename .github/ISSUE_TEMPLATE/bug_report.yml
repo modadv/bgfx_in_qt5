@@ -1,0 +1,72 @@
+name: Bug report
+description: Report a reproducible problem in the engine core, Qt integration, build, or examples.
+title: "[Bug] "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a bug.
+
+        Please provide a minimal and reproducible report. Issues without enough context are hard to act on.
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: What is broken?
+      placeholder: The Qt offscreen example crashes when switching to quad view on Windows.
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Reproduction steps
+      description: Provide the smallest set of steps needed to reproduce the issue.
+      placeholder: |
+        1. Configure and build in Debug mode
+        2. Launch the Qt example
+        3. Load the benchmark preset
+        4. Switch to quad view
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+    validations:
+      required: true
+  - type: dropdown
+    id: host_os
+    attributes:
+      label: Host platform
+      options:
+        - Windows
+        - Linux
+        - macOS
+        - Other
+    validations:
+      required: true
+  - type: input
+    id: qt_version
+    attributes:
+      label: Qt version
+      placeholder: 5.15.11
+  - type: input
+    id: build_type
+    attributes:
+      label: Build type
+      placeholder: Debug
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs or screenshots
+      description: Paste the relevant log output or attach screenshots if available.
+      render: text
+

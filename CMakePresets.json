@@ -1,0 +1,79 @@
+{
+    "version": 6,
+    "cmakeMinimumRequired": {
+        "major": 3,
+        "minor": 26,
+        "patch": 0
+    },
+    "configurePresets": [
+        {
+            "name": "conan-base",
+            "hidden": true,
+            "binaryDir": "${sourceDir}/.build",
+            "cacheVariables": {
+                "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+                "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/.build/build/generators/conan_toolchain.cmake"
+            }
+        },
+        {
+            "name": "debug-msvc",
+            "displayName": "Debug (MSVC)",
+            "description": "Configure the project against the Conan-generated Debug toolchain with the Visual Studio generator.",
+            "condition": {
+                "type": "equals",
+                "lhs": "${hostSystemName}",
+                "rhs": "Windows"
+            },
+            "generator": "Visual Studio 18 2026",
+            "inherits": "conan-base",
+            "architecture": {
+                "value": "x64"
+            }
+        },
+        {
+            "name": "debug-ninja",
+            "displayName": "Debug (Ninja)",
+            "description": "Configure the project against the Conan-generated Debug toolchain with Ninja.",
+            "condition": {
+                "type": "notEquals",
+                "lhs": "${hostSystemName}",
+                "rhs": "Windows"
+            },
+            "generator": "Ninja",
+            "inherits": "conan-base",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug"
+            }
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "debug-msvc",
+            "configurePreset": "debug-msvc",
+            "configuration": "Debug",
+            "jobs": 20
+        },
+        {
+            "name": "debug-ninja",
+            "configurePreset": "debug-ninja",
+            "jobs": 20
+        }
+    ],
+    "testPresets": [
+        {
+            "name": "debug-msvc",
+            "configurePreset": "debug-msvc",
+            "configuration": "Debug",
+            "output": {
+                "outputOnFailure": true
+            }
+        },
+        {
+            "name": "debug-ninja",
+            "configurePreset": "debug-ninja",
+            "output": {
+                "outputOnFailure": true
+            }
+        }
+    ]
+}

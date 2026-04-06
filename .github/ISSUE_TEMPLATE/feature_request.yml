@@ -1,0 +1,36 @@
+name: Feature request
+description: Propose a focused improvement to the engine, Qt adapter, examples, or project workflow.
+title: "[Feature] "
+labels:
+  - enhancement
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please keep feature requests concrete. The project is intentionally conservative about scope and prefers small, composable changes.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem statement
+      description: What problem are you trying to solve?
+      placeholder: Industrial Qt applications need a reusable static mesh example that follows the same offscreen architecture as the terrain demo.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: Describe the smallest change that would solve the problem.
+    validations:
+      required: true
+  - type: textarea
+    id: constraints
+    attributes:
+      label: Constraints or non-goals
+      description: Mention any compatibility, performance, or architecture constraints that matter.
+      placeholder: Must preserve Qt >= 5.15 compatibility and keep the render core independent from Qt host types.
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+

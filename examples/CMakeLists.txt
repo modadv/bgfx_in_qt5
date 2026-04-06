@@ -1,0 +1,4 @@
+cmake_minimum_required(VERSION 3.26)
+
+add_subdirectory(qt_widget_offscreen)
+add_subdirectory(terrain_headless_benchmark)

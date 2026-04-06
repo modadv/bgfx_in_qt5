@@ -1,0 +1,67 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build-and-test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - windows-latest
+          - ubuntu-24.04
+          - macos-14
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Conan
+        run: pip install "conan>=2.0,<3.0"
+
+      - name: Detect Conan profile
+        run: conan profile detect --force
+
+      - name: Install dependencies
+        run: conan install . -of=.build -s build_type=Debug --build=missing
+
+      - name: Configure
+        shell: pwsh
+        run: |
+          if ("${{ runner.os }}" -eq "Windows") {
+            cmake --preset debug-msvc
+          } else {
+            cmake --preset debug-ninja
+          }
+
+      - name: Build
+        shell: pwsh
+        run: |
+          if ("${{ runner.os }}" -eq "Windows") {
+            cmake --build --preset debug-msvc
+          } else {
+            cmake --build --preset debug-ninja
+          }
+
+      - name: Test
+        shell: pwsh
+        run: |
+          if ("${{ runner.os }}" -eq "Windows") {
+            ctest --preset debug-msvc
+          } else {
+            ctest --preset debug-ninja
+          }
